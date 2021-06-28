@@ -1,0 +1,57 @@
+spring:
+  application:
+    name: GATEWAY-SERVICE
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+      routes:
+        
+        - id: service-users-sign-in
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/users/**
+        - id: company-service
+          uri: lb://COMPANY-SERVICE
+          predicates:
+              - Path=/administrator/**
+          filters:
+            - Authentication
+        - id: company-service
+          uri: lb://COMPANY-SERVICE
+          predicates:
+              - Path=/companyController/**
+          filters:
+              - Authentication
+        - id: company-service
+          uri: lb://COMPANY-SERVICE
+          predicates:
+              - Path=/customerController/**
+          filters:
+              - Authentication
+
+
+
+server:
+  port: 9000
+
+management:
+  endpoint:
+    gateway:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream

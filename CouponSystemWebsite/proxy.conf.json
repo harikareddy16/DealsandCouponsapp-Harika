@@ -1,0 +1,26 @@
+{
+  "/users/**": {
+    "target": "http://localhost:9000",
+    "secure": false,
+    "logLevel": "debug"
+
+  },
+  "/administrator/**": {
+    "target": "http://localhost:9000",
+    "secure": false,
+    "logLevel": "debug"
+
+  },
+  "/companyController/**": {
+    "target": "http://localhost:9000",
+    "secure": false,
+    "logLevel": "debug"
+
+  },
+  "/customerController/**": {
+    "target": "http://localhost:9000",
+    "secure": false,
+    "logLevel": "debug"
+
+  }
+}
